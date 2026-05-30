@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "CreditoSmart - Sistema de Gestión de Préstamos",
   "scripts": {
-    "install:all": "cd backend && npm install && cd ../frontend && npm install",
+    "install:all": "cd backend && npm install && cd ../frontend && npm install --include=dev",
     "build": "cd frontend && npm run build",
     "seed": "cd backend && npm run seed",
     "start": "cd backend && npm start",

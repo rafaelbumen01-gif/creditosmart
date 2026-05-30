@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path");
 const cors = require("cors");
 const config = require("./config");
 const auth = require("./middleware/auth");
@@ -31,16 +32,25 @@ app.use("/api/loans", auth, loanRoutes);
 app.use("/api/payments", auth, paymentRoutes);
 app.use("/api/notifications", auth, notificationRoutes);
 
-// ─── Error Handler ──────────────────────────────────────────────────
-app.use(errorHandler);
+// ─── API 404 (antes del catch-all del frontend) ────────────────────
+app.all("/api/*", (req, res) => {
+  res.status(404).json({ error: "Endpoint no encontrado" });
+});
 
 // ─── Serve Frontend (Production) ────────────────────────────────────
-const path = require("path");
 const frontendDist = path.join(__dirname, "../../frontend/dist");
 app.use(express.static(frontendDist));
 app.get("*", (req, res) => {
-  res.sendFile(path.join(frontendDist, "index.html"));
+  const indexPath = path.join(frontendDist, "index.html");
+  if (require("fs").existsSync(indexPath)) {
+    res.sendFile(indexPath);
+  } else {
+    res.status(200).send("CreditoSmart API running. Frontend not built yet.");
+  }
 });
+
+// ─── Error Handler ──────────────────────────────────────────────────
+app.use(errorHandler);
 
 // ─── Start ──────────────────────────────────────────────────────────
 app.listen(config.port, () => {

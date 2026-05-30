@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: creditosmart
+    runtime: node
+    plan: free
+    buildCommand: npm run render:build
+    startCommand: npm start
+    envVars:
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      - key: DATA_DIR
+        value: ./src/data
+      - key: NODE_ENV
+        value: production

@@ -1,0 +1,14 @@
+{
+  "name": "creditosmart",
+  "version": "1.0.0",
+  "description": "CreditoSmart - Sistema de Gestión de Préstamos",
+  "scripts": {
+    "install:all": "cd backend && npm install && cd ../frontend && npm install",
+    "build": "cd frontend && npm run build",
+    "seed": "cd backend && npm run seed",
+    "start": "cd backend && npm start",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "render:build": "npm run install:all && npm run build && npm run seed"
+  }
+}
